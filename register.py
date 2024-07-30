@@ -8,18 +8,17 @@ def register_ui():
 
     root = ctk.CTk()
     root.title("Registro")
-    window_width = 600
-    window_height = 400
-    root.resizable(False, False) # Impossibilitar maximizar janela
+    window_width = 600 # Largura da janela
+    window_height = 400 # Altura da janela
+    root.resizable(False, False) # Impede o redimensionamento da janela
     root.iconbitmap("") # Icon do app
-
+    
+    # Calcula as coordenadas para centralizar a janela na tela
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
-
     x = (screen_width / 2) - (window_width / 2)
     y = (screen_height / 2) - (window_height / 2)
-
-    root.geometry(f'{window_width}x{window_height}+{int(x)}+{int(y)}')
+    root.geometry(f'{window_width}x{window_height}+{int(x)}+{int(y)}') # Define o tamanho e a posição da janela
 
     title_label = ctk.CTkLabel(root, text="Registro", font=("Fixedsys", 24, "bold"))
     title_label.place(relx=0.5, rely=0.15, anchor='center')
