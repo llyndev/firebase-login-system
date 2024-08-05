@@ -1,9 +1,13 @@
+# PAINEL DE LOGIN COM A OPÇÃO DE REGISTRO.
+
 from datetime import datetime
 from dateutil import parser, tz
 import customtkinter as ctk
 import requests
 from tkinter import messagebox
 import pyrebase
+import bcrypt
+from register import register_ui
 
 # Configurações do Firebase
 firebase_config = {
@@ -34,23 +38,29 @@ def get_current_time():
         return None
     
 # Função para autenticar um usuário
-def login_user(username, password):
+def login_user(username, password, root):
     try:
         # Obtém os dados do usuário do Firebase
         user_data = db.child("users").child(username).get().val()
-        if user_data and user_data['password'] == password: # Verifica se o usuário existe e a senha está correta
+        if user_data and bcrypt.checkpw(password.encode('utf-8'), user_data['password'].encode('utf-8')): # Verifica se o usuário existe e a senha está correta
             current_time = get_current_time() # Obtém o horário atual
             if current_time is None:
-                return # Se não conseguir obter o horário, encerra a função
+                return
         
-            # Converte a data de expiração do usuário para o fuso horário UTC
-            expiration = datetime.strptime(user_data['expiration'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=tz.UTC)
-            if expiration >= current_time: # Verifica se a conta ainda é válida
-                messagebox.showinfo("Info", "Login bem-sucedido!")
-                root.destroy() # Fecha a janela de login
-                # AQUI DEVE CHAMAR A FUNÇÃO PARA ABRIR O PROGRAMA PRINCIPAL
+            # Verifica se o usuário tem acesso
+            expiration_date_str = user_data.get('expiration_date')
+            if expiration_date_str:
+                # Converte a data de expiração do usuário para o fuso horário UTC
+                expiration_date = datetime.strptime(expiration_date_str, '%Y-%m-%d %H:%M:%S').replace(tzinfo=tz.UTC)
+                # Verifica se a conta ainda é válida
+                if expiration_date >= current_time:
+                    messagebox.showinfo("Info", "Login bem-sucedido!")
+                    root.destroy()
+                    # AQUI DEVE CHAMAR A FUNÇÃO PARA ABRIR O PROGRAMA PRINCIPAL
+                else:
+                    messagebox.showinfo("info", "Sua conta expirou!")
             else:
-                messagebox.showinfo("info", "Sua conta expirou!")
+                messagebox.showinfo("info", "Acesso não autorizado.")
         else:
             messagebox.showerror("Error", "Usuário não encontrado ou senha incorreta!")
     except Exception as e:
@@ -58,12 +68,12 @@ def login_user(username, password):
 
 
 # Código principal para configurar e iniciar a interface gráfica
-if __name__ == '__main__':
+def main_ui():
     ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("dark-blue")
 
     root = ctk.CTk()
-    root.title("Zenix")
+    root.title("Login")
     window_width = 600 # Largura da janela
     window_height = 400 # Altura da janela
     root.resizable(False, False) # Impede o redimensionamento da janela
@@ -91,7 +101,13 @@ if __name__ == '__main__':
     password_entry.grid(row=1, column=1, padx=10, pady=5)
 
     login_button = ctk.CTkButton(login_frame, text="Login",
-                                 command=lambda: login_user(user_entry.get(), password_entry.get()))
-    login_button.grid(row=2, column=0, columnspan=2, pady=10)
+                                 command=lambda: login_user(user_entry.get(), password_entry.get(), root))
+    login_button.grid(row=2, column=0, columnspan=2, pady=5)
+
+    reg_button = ctk.CTkButton(login_frame, text="Registrar", command=lambda: (root.destroy(), register_ui()))
+    reg_button.grid(row=3, column=0, columnspan=2, pady=5)
 
     root.mainloop()
+
+if __name__ == '__main__':
+    main_ui()

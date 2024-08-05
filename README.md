@@ -4,8 +4,8 @@
 
 <h2>Funcionalidades</h2>
 <ul>
-    <li><strong>Registro de Usuário</strong>: Apenas o proprietário do software pode registrar novos usuários, garantindo controle total sobre quem tem acesso.</li>
-    <li><strong>Autenticação Segura</strong>: Senhas dos usuários são armazenadas de forma segura usando Firebase Authentication.</li>
+    <li><strong>Registro de Usuário</strong>: Apenas o proprietário do software pode atualizar a quantidade de dias que o usuários tem acesso ao seu programa</li>
+    <li><strong>Autenticação Segura</strong>: Senhas dos usuários são armazenadas de forma segura usando Firebase Authentication e Bcrypt.</li>
     <li><strong>Gerenciamento de Acesso</strong>: O sistema inclui uma verificação de validade da conta baseada na data de registro e no tempo de acesso permitido.</li>
 </ul>
 
@@ -16,11 +16,12 @@
 <ol>
     <li><strong>Configuração do Firebase</strong>: Certifique-se de ter uma conta no Firebase e configure o projeto para uso do Firebase Authentication e Realtime Database.</li>
     <li><strong>Arquivo de Credenciais</strong>: Utilize um arquivo de credenciais JSON para se conectar ao Firebase (esse arquivo é gerado no console do Firebase).</li>
-    <li><strong>Registro de Usuários</strong>: O proprietário pode usar o código de registro para registrar usuários, definindo um nome de usuário, senha e a duração do acesso.</li>
+    <li><strong>Registro de Usuários</strong>: O proprietário pode usar o código de admin para atualizar a quantidade de dias que o usuários tem acesso ao seu programa.</li>
     <li><strong>Acesso do Usuário</strong>: O usuário terá acesso ao painel de login. Se as credenciais estiverem corretas, o programa de login será fechado e o usuário será direcionado para o software principal.</li>
 </ol>
 
 <h2>Considerações de Segurança</h2>
 <ul>
     <li><strong>Credenciais de Firebase</strong>: As credenciais administrativas nunca devem ser expostas ao público ou incluídas no cliente final. Utilize práticas seguras para o gerenciamento de chaves e credenciais.</li>
+    <li><strong>Compartilhamento de Conta</strong>: Para aumentar a segurança do seu aplicativo e impedir o compartilhamento de contas, é recomendável implementar um sistema de verificação que utilize o HWID (Hardware ID) ou UUID (Universally Unique Identifier) do computador do usuário que adquiriu seu software.</li>
 </ul>

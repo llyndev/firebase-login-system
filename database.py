@@ -1,25 +1,25 @@
+from tkinter import messagebox
 import firebase_admin
 from firebase_admin import credentials, db
 from datetime import datetime, timedelta
 
-# Carrega as credenciais do Firebase a partir de um arquivo JSON
-cred = credentials.Certificate("YOUR_CREDENTIALS.JSON")
-
-# Inicializa o aplicativo Firebase com as credenciais e a URL do banco de dados
+# Carrega as credenciais do Firebase a partir de um arquivo JSON e inicializa a aplicação Firebase Admin
+cred = credentials.Certificate("YOUR_CREDENTIALS")
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'YOUR_DATABASE_URL'
+    'databaseURL': 'YOUR_CREDENTIALS' # URL do banco de dados em tempo real do Firebase
 })
 
-# Função para registrar um novo usuário
-def register_user(username, password, days_valid):
-    # Obtém uma referência ao nó 'users' no banco de dados Firebase
-    ref = db.reference('users')
+# Função para atualizar a data de expiração de um usuário
+def days_user(username, days_valid):
+    ref = db.reference('users') # Obtém a referência ao nó 'users' no banco de dados
+    user_data = ref.child(username).get() # Obtém os dados do usuário a partir do banco de dados
 
-    # Calcula a data de expiração com base no número de dias válidos fornecidos
-    expiration_date = (datetime.now() + timedelta(days=days_valid)).strftime('%Y-%m-%d %H:%M:%S')
+    if user_data:
+         # Calcula a nova data de expiração
+        expiration_date = (datetime.now() + timedelta(days=days_valid)).strftime('%Y-%m-%d %H:%M:%S')
 
-    # Armazena os dados do usuário no banco de dados Firebase
-    ref.child(username).set({
-        'password': password, # Armazena a senha do usuário
-        'expiration': expiration_date # Armazena a data de expiração da conta
-    })
+        # Atualiza a data de expiração do usuário no banco de dados
+        ref.child(username).update({'expiration_date': expiration_date})
+        messagebox.showinfo("Info", f"Data de expiração atualizada para o usuário: {username}")
+    else:
+        messagebox.showinfo("info", f"Usuário {username} não encontrado")
