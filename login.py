@@ -5,24 +5,11 @@ from dateutil import parser, tz
 import customtkinter as ctk
 import requests
 from tkinter import messagebox
-import pyrebase
 import bcrypt
 from register import register_ui
+from bdfire import load_database
 
-# Configurações do Firebase
-firebase_config = {
-    "apiKey": "YOUR_API_KEY",
-    "authDomain": "YOUR_AUTH_DOMAIN",
-    "databaseURL": "YOUR_DATABASE_URL",
-    "projectId": "YOUR_ID",
-    "storageBucket": "YOUR_STORAGE",
-    "messagingSenderId": "YOUR_MESSAGING",
-    "appId": "YOUR_APP_ID"
-}
-
-# Inicializa o aplicativo Firebase com a configuração fornecida
-firebase = pyrebase.initialize_app(firebase_config)
-db = firebase.database()
+db = load_database()
 
 # Função para obter o horário atual de uma API para evitar manipulação de data
 def get_current_time():

@@ -1,7 +1,7 @@
 # PAINEL DO ADMIN PARA ALTERAR A QUANTIDADE DE DIAS QUE O USUÁRIO TEM DE ACESSO AO SOFTWARE PRINCIPAL.
 # INFORMANDO O USUÁRIO E A QUANTIDADE DE DIAS QUE ELE TERA ACESSO.
 
-from database import register_user
+from database import days_user
 import customtkinter as ctk
 
 def create_register_ui():
@@ -30,7 +30,7 @@ def create_register_ui():
         username = username_entry.get()
         days_valid = int(days_entry.get())
         
-        register_user(username, days_valid)
+        days_user(username, days_valid)
 
     reg_frame = ctk.CTkFrame(root)
     reg_frame.place(relx=0.5, rely=0.5, anchor='center')

@@ -1,24 +1,12 @@
 # PAINEL DE REGISTRO
 
 import customtkinter as ctk
-import pyrebase
+from bdfire import load_database
 from tkinter import messagebox
 import bcrypt
 
 # Configurações do Firebase
-firebase_config = {
-    "apiKey": "YOUR_API_KEY",
-    "authDomain": "YOUR_AUTH_DOMAIN",
-    "databaseURL": "YOUR_DATABASE_URL",
-    "projectId": "YOUR_ID",
-    "storageBucket": "YOUR_STORAGE",
-    "messagingSenderId": "YOUR_MESSAGING",
-    "appId": "YOUR_APP_ID"
-}
-
-# Inicializa o Firebase com as configurações fornecidas
-firebase = pyrebase.initialize_app(firebase_config)
-db = firebase.database()
+db = load_database()
 
 # Função para abrir a interface de login
 def open_login_ui():
