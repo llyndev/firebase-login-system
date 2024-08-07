@@ -1,6 +1,6 @@
 <h1>Sistema de Autenticação de Usuário com Firebase em Python</h1>
 
-<p>Este projeto é um sistema simples de autenticação de usuário desenvolvido em Python, projetado para ajudar proprietários de softwares pagos a gerenciar o acesso dos usuários. O sistema permite que o proprietário registre novos usuários, fornecendo nome, senha e duração do acesso (em dias). A autenticação e o gerenciamento dos dados de usuário são realizados utilizando o Firebase, uma plataforma de desenvolvimento de aplicativos oferecida pelo Google.</p>
+<p>Este projeto é um sistema simples de autenticação de usuário desenvolvido em Python, projetado para ajudar proprietários de softwares pagos a gerenciar o acesso dos usuários. O sistema permite que o proprietário informe a quantidade de dias que o usuário vai utilizar seu software, fornecendo seu nome registrado e a duração do acesso (em dias). A autenticação e o gerenciamento dos dados de usuário são realizados utilizando o Firebase, uma plataforma de desenvolvimento de aplicativos oferecida pelo Google.</p>
 
 <h2>Funcionalidades</h2>
 <ul>
