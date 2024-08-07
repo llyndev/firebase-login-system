@@ -22,6 +22,8 @@
 
 <h2>Considerações de Segurança</h2>
 <ul>
-    <li><strong>Credenciais de Firebase</strong>: As credenciais administrativas nunca devem ser expostas ao público ou incluídas no cliente final. Utilize práticas seguras para o gerenciamento de chaves e credenciais.</li>
+    <li><strong>Credenciais de Firebase</strong>: As credenciais administrativas do Firebase nunca devem ser expostas ao público ou incluídas no código do cliente final. Para garantir a segurança, utilizamos um arquivo .env para armazenar e configurar as variáveis de ambiente necessárias para a conexão com o Firebase. Certifique-se de que o arquivo .env não esteja incluído no controle de versão e que você configure as variáveis de ambiente adequadamente em seu ambiente local.</li>
     <li><strong>Compartilhamento de Conta</strong>: Para aumentar a segurança do seu aplicativo e impedir o compartilhamento de contas, é recomendável implementar um sistema de verificação que utilize o HWID (Hardware ID) ou UUID (Universally Unique Identifier) do computador do usuário que adquiriu seu software.</li>
 </ul>
+
+
